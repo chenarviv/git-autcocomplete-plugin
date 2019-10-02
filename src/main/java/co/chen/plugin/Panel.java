@@ -1,14 +1,29 @@
 package co.chen.plugin;
 
+import com.intellij.openapi.project.Project;
+import git4idea.GitLocalBranch;
+import git4idea.GitUtil;
+import git4idea.commands.Git;
+import git4idea.commands.GitCommandResult;
+import git4idea.commands.GitImpl;
+import git4idea.repo.GitRemote;
+import git4idea.repo.GitRepoInfo;
+import git4idea.repo.GitRepository;
+import git4idea.repo.GitRepositoryManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 public class Panel extends JPanel implements KeyListener {
+    private Project project;
     @Override
     public void keyTyped(KeyEvent e) {
+
         String[] args = new String[]{"ping", "www.google.com"};
         try {
             Process p = Runtime.getRuntime().exec("ping www.google.com");

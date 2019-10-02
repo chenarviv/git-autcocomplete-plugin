@@ -1,5 +1,6 @@
 package co.chen.plugin;
 
+import co.chen.plugin.Terminal.GoodWindowExec;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -44,6 +45,7 @@ class MultilinePopupBuilder extends AnAction{
         myTextField = createTextField(project);
         new MyCompletionProvider(values, supportsNegativeValues).apply(myTextField);
         myTextField.setText(initialValue);
+
 
     }
 

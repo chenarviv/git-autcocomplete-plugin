@@ -1,5 +1,9 @@
 package co.chen.plugin;
 
+import com.intellij.execution.ExecutionException;
+import com.intellij.execution.configurations.GeneralCommandLine;
+import com.intellij.execution.process.OSProcessHandler;
+import com.intellij.execution.process.ProcessHandler;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonShortcuts;
@@ -13,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 public class Popup extends AnAction {
     @NotNull
@@ -25,6 +31,21 @@ public class Popup extends AnAction {
         if (project == null) {
             return;
         }
+/*        ArrayList<String> cmds = new ArrayList<>();
+        cmds.add("./gradlew");*/
+
+        GeneralCommandLine generalCommandLine = new GeneralCommandLine();
+        generalCommandLine.setExePath("./gradlew");
+        generalCommandLine.setCharset(Charset.forName("UTF-8"));
+        generalCommandLine.setWorkDirectory(project.getBasePath());
+
+        ProcessHandler processHandler = null;
+        try {
+            processHandler = new OSProcessHandler(generalCommandLine);
+        } catch (ExecutionException e1) {
+            e1.printStackTrace();
+        }
+        processHandler.startNotify();
 
         myTextField = MultiValueAutoComplete.create(project);
         JPanel panel = new Panel(new BorderLayout());
